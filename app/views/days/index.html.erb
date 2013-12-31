@@ -1,0 +1,42 @@
+<h1>Days</h1>
+
+<% @days.each do |day| %>
+  <div class='row'>
+    <div class='col-md-2'>
+      <%= day.title %>
+    </div>
+  
+    <div class='col-md-5'>
+      <% day.meals.each do |meal| %>
+        <div class='row'>
+          <div class='col-md-12'>
+            <strong><%= meal.meal_type %></strong> - 
+            <%= recipe_list(meal) %>
+          </div>
+        </div>
+      <% end %>
+
+      <%= render partial: 'mealmodal', locals: { day: day, meals: @meals } %>
+    </div>
+      
+      <div class='col-md-5'>
+        <% if day.meals.length > 0 %>
+          <strong>Calories</strong>
+          <%= day.total('calories') %>/2800
+          <%= render partial: 'progressbar', locals: { max: 2800, value: day.total('calories') } %>
+
+          <strong>Carbohydrates</strong>
+          <%= day.total('carbs') %>/498
+          <%= render partial: 'progressbar', locals: { max: 498, value: day.total('carbs') } %>
+          <strong>Fats</strong>
+          <%= day.total('fats') %>/119
+          <%= render partial: 'progressbar', locals: { max: 119, value: day.total('fats') } %>
+          <strong>Protein</strong>
+          <%= day.total('protein') %>/65
+          <%= render partial: 'progressbar', locals: { max: 65, value: day.total('protein') } %>
+        <% end %>
+      </div>
+  </div>
+
+  <hr />
+<% end %>

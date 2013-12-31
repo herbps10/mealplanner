@@ -1,0 +1,16 @@
+// Place all the styles related to the shopping controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+li.disabled {
+  color: gray;
+}
+
+p {
+  padding-left: 20px;
+}

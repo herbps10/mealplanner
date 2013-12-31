@@ -1,0 +1,32 @@
+<h1>Recipes</h1>
+
+<%= link_to "New recipe", new_recipe_path %>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Calories</th>
+      <th>Carbohydrates (g)</th>
+      <th>Fats (g)</th>
+      <th>Protein (g)</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <% @recipes.each do |recipe| %>
+    <tr>
+      <td><%= link_to recipe.title, recipe_path(recipe.id) %></td>
+      <td><%= recipe.colorized_calories %></td>
+      <td><%= recipe.colorized_carbs %></td>
+      <td><%= recipe.colorized_fats %></td>
+      <td><%= recipe.colorized_protein %></td>
+      <td><%= link_to '(edit)', edit_recipe_path(recipe.id) %></td>
+      <td>
+        <% if recipe.photo.exists? %>
+          <%= image_tag recipe.photo.url(:thumb) %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

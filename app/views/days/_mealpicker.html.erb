@@ -1,0 +1,25 @@
+<div class='dropdown'>
+  <button class='btn dropdown-toggle' type='button' data-toggle='dropdown'>
+    Add Meal
+  </button>
+
+  <div class='dropdown-menu list-group' role='menu'>
+    <% meals.each do |meal| %>
+      <a role='presentation' href='#' class='list-group-item'>
+
+        <strong><%= meal.meal_type %></strong>
+
+        <ul>
+          <% meal.recipes.each do |recipe| %>
+            <li><%= recipe.title %></li>
+          <% end %>
+        </ul>
+        
+        <%= form_for :day_meal_relationship, :url => day_meal_relationships_path do |f| %>
+          <%= f.hidden_field :day_id, :value => day.id %>
+          <%= f.hidden_field :meal_id, :value => meal.id %>
+        <% end %>
+      </a>
+    <% end %>
+  </ul>
+</div>

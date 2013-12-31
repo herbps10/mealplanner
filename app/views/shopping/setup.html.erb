@@ -1,0 +1,40 @@
+<h1>Shopping List</h1>
+
+<%= form_for :shopping, url: shopping_list_url do |f| %>
+
+  <%= f.label :directions, 'Include directions' %>
+  <%= f.check_box :directions %>
+
+  <% @days.each do |day| %>
+    <div class='day'>
+      <% next if day.meals.length == 0 %>
+
+      <h2><%= check_box_tag "shopping[day_ids][]", day.id, true, class: 'day' %> <%= day.title %></h2>
+
+      <ul>
+        <% day.meals.each do |meal| %>
+          <li>
+            <div class='meal'>
+              <%= check_box_tag "shopping[meal_ids][]", meal.id, true, class: 'meal' %>
+
+              <strong><%= meal.meal_type %></strong>
+
+              <ul>
+                <% meal.recipes.each do |recipe| %>
+                  <li>
+                    <%= check_box_tag "shopping[recipe_ids][day_#{day.id}][meal_#{meal.id}][]", recipe.id, true, class: 'recipe' %>
+                    <%= recipe.title %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
+
+  <% end %>
+
+  <%= f.submit 'Make list' %>
+<% end %>

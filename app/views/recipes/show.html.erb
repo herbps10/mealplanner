@@ -1,0 +1,50 @@
+<h1><%= @recipe.title %></h1>
+
+<% if @recipe.photo.exists? %>
+  <%= image_tag @recipe.photo.url(:medium) %>
+<% end %>
+
+<table>
+  <% %w(calories carbs fats protein).each do |n| %>
+    <% if @recipe[n] %>
+      <tr>
+        <td><%= @recipe.send('colorized_' + n) %></td>
+        <td><%= n %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+
+<% if not @recipe.url.nil? %>
+  <p>
+    Source: <%= link_to @recipe.url, @recipe.url %>
+  </p>
+<% end %>
+
+<% if @recipe.servings %>
+  <p>
+    <%= @recipe.servings %> Serving<%= 's' if @recipe.servings > 1 %>
+  </p>
+<% end %>
+
+<% if @recipe.ingredients.length > 0 %>
+  <h2><%= @recipe.ingredients.length %> Ingredients</h2>
+  <ul>
+    <% @recipe.ingredients.each do |ingredient| %>
+      <li>
+        <%= ingredient.description %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @recipe.directions %>
+  <h2>Directions</h2>
+
+  <p>
+    <%= @recipe.directions.gsub("\n", "</p><p>").html_safe %>
+  </p>
+<% end %>
+
+
+<%= link_to "Back", recipes_path %>

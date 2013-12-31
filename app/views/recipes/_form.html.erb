@@ -1,0 +1,97 @@
+<%= form_for @recipe, :html => { :multipart => true } do |f| %>
+  <% if @recipe.errors.any? %>
+    <h2>Error:</h2>
+    <ul>
+      <% @recipe.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class='row'>
+    <div class='form-group'>
+      <%= f.label :title, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-10'>
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+    </div>
+  
+    <div class='form-group'>
+      <%= f.label :calories, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-1'>
+        <%= f.text_field :calories, class: 'form-control' %>
+      </div>
+    </div>
+  
+    <div class='form-group'>
+      <%= f.label :carbs, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-1'>
+        <%= f.text_field :carbs, class: 'form-control' %>
+      </div>
+    </div>
+  
+    <div class='form-group'>
+      <%= f.label :fats, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-1'>
+        <%= f.text_field :fats, class: 'form-control' %>
+      </div>
+    </div>
+  
+    <div class='form-group'>
+      <%= f.label :protein, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-1'>
+        <%= f.text_field :protein, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :servings, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-1'>
+        <%= f.text_field :servings, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :url, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-10'>
+        <%= f.text_field :url, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :notes, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-10'>
+        <%= f.text_area :notes, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :photo, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-10'>
+        <%= f.file_field :photo, class: 'form-control' %>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>Ingredients</h2>
+
+  <% if not @recipe %>
+    <%= f.label :batch_ingredients, class: 'col-sm-2 control-label' %>
+    <%= f.text_area :batch_ingredients, class: 'form-control' %>
+  <% end %>
+
+  <div class='row'>
+    <%= f.fields_for :ingredients do |ingredients_form| %>
+      <div class='col-sm-2'>
+        <%= ingredients_form.text_field :description, class: 'form-control' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class='row'>
+    <div class='form-group'>
+      <%= f.submit class: 'submit' %>
+    </div>
+  </div>
+<% end %>

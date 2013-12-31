@@ -1,0 +1,21 @@
+// Place all the styles related to the days controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.nutrition {
+  float: right;
+}
+
+.nutrition .label {
+  position: relative;
+}
+
+.nutrition .label span {
+  color: black;
+  position: absolute;
+  font-size: 6pt;
+  bottom: -8px;
+  left: 0px;
+  width: 100%;
+  color: gray;
+}

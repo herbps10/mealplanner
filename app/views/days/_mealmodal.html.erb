@@ -1,0 +1,51 @@
+<div class='modal fade meal-modal' id='add-meal-modal-<%= day.id %>' role="dialog">
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+        <h4 class='modal-title'>Change Meals for <%= day.title %></h4>
+      </div>
+
+      <div class='modal-body'>
+
+        <%= form_for day do |f| %>
+          <%= f.hidden_field :day_id, :value => day.id %>
+
+          <div class='list-group'>
+            <% meals.each do |meal| %>
+              <a role='presentation' href='#' class='list-group-item'>
+                <%= check_box_tag("day[meal_ids][]", meal.id, day.meals.include?(meal)) %>
+
+                <strong><%= meal.meal_type %></strong>
+
+
+                <div class='nutrition'>
+                  <% %w(calories carbs fats protein).each do |n| %>
+                    <span class='label label-warning'><span><%= n %></span><%= meal.total(n) %></span>&nbsp;
+                  <% end %>
+                </div>
+
+        
+                <ul>
+                  <% meal.recipes.each do |recipe| %>
+                    <li><%= recipe.title %></li>
+                  <% end %>
+                </ul>
+              </a>
+            <% end %>
+          </div>
+        <% end %>
+        
+      </div>
+
+      <div class='modal-footer'>
+        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+        <button type='button' class='btn btn-primary add-meals'>Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class='btn' data-toggle='modal' data-target='#add-meal-modal-<%= day.id %>'>
+Change
+</button>

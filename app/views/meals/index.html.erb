@@ -1,0 +1,45 @@
+<h1>Meals</h2>
+<%= link_to 'Add new', new_meal_path %>
+
+<table class='table table-striped'>
+  <tr>
+    <th></th>
+    <th></th>
+    <th>Calories</th>
+    <th>Carbohydrates (g)</th>
+    <th>Fats (g)</th>
+    <th>Protein (g)</th>
+    <th></th>
+  </tr>
+
+  <% @meals.each do |meal| %>
+    <tr>
+        <td><%= meal.meal_type %></td>
+        <td>
+          <ul>
+            <% meal.recipes.each do |recipe| %>
+              <li><%= recipe.title %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td><%= meal.colorized_calories %></td>
+        <td><%= meal.colorized_carbs %></td>
+        <td><%= meal.colorized_fats %></td>
+        <td><%= meal.colorized_protein %></td>
+
+        <td>
+          <%= form_for :day_meal_relationship, :url => day_meal_relationships_path do |f| %>
+            <div class='input-group'>
+              <%= f.hidden_field :meal_id, :value => meal.id %>
+  
+              <%= f.collection_select :day_id, Day.all, :id, :title, {}, class: 'form-control' %>
+
+              <span class='input-group-btn'>
+                <%= f.submit 'add', class: 'btn btn-default' %>
+              </span>
+            </div>
+          <% end %>
+        </td>
+    </tr>
+  <% end %>
+</table>

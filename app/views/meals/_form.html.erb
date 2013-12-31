@@ -1,0 +1,39 @@
+<%= form_for @meal, url: meals_path(@meal) do |f| %>
+  <% if @meal.errors.any? %>
+    <h2>Error:</h2>
+    <ul>
+      <% @meal.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= select(:meal, :meal_type, [
+    'Breakfast',
+    'Lunch',
+    'Dinner',
+    'Snack'
+  ].collect { |t| [t, t] }) %>
+
+  <h2>Recipes</h2>
+
+  
+  <%= text_field_tag 'recipe-search', '', placeholder: 'filter recipes' %>
+
+  <div class='list-group recipes'>
+    <% Recipe.all.each do |recipe| %>
+      <a role='presentation' href='#' class='list-group-item'>
+        <%= check_box_tag "meal[recipe_ids][]", recipe.id, @meal.recipes.include?(recipe) %>
+        <strong class='title'><%= recipe.title %></strong>
+
+        <% if recipe.photo.exists? %>
+          <%= image_tag recipe.photo.url(:thumb) %>
+        <% end %>
+      </a>
+    <% end %>
+  </div>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

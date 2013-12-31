@@ -1,0 +1,32 @@
+<h1>Shopping List</h1>
+
+<% @days.each do |day| %>
+  <% next if not @recipe_ids.keys.include?(day.id) %>
+
+  <h2><%= day.title %></h2>
+  
+  <% day.meals.each do |meal| %>
+
+    <% next if not @recipe_ids[day.id].keys.include?(meal.id) %>
+
+    <% meal.recipes.each do |recipe| %>
+
+      <% next if not @recipe_ids[day.id][meal.id].include?(recipe.id) %>
+
+      <strong><%= recipe.title %></strong>
+      <ul>
+        <% recipe.ingredients.each do |ingredient| %>
+          <li><%= ingredient.description %></li>
+        <% end %>
+      </ul>
+
+      <% if @directions and not recipe.directions.nil? %>
+        <p>
+          <%= recipe.directions.gsub("\n", "</p><p>").html_safe %>
+        </p>
+      <% end %>
+
+      <hr />
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,10 @@
+<%= link_to meal.meal_type, edit_meal_path(meal.id) %>
+
+<%= render partial: 'totals', locals: { meal: meal } %>
+
+<ul>
+  <% meal.recipes.each do |recipe| %>
+    <li><%= link_to recipe.title, recipe_path(recipe.id) %></li>
+  <% end %>
+</ul>
+
